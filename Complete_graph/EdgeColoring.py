@@ -2,6 +2,7 @@ from Edges import *
 from Factory import *
 from Graphs import *
 
+
 class EdgeColor:
     
     def __init__(self, graph):
@@ -15,7 +16,7 @@ class EdgeColor:
             if edge.source == edge.target: 
                 raise ValueError("a loop detected")
             else:
-                self.color[edge.__hash__()] = None   # edge.source < edge.target
+                self.color[edge] = None   # edge.source < edge.target
                 self.m += 1
         if len(self.color) < self.m:
             raise ValueError("edges are not unique")
@@ -25,12 +26,15 @@ class EdgeColor:
         peripheral_edges = []
         for i in self.graph.iteredges():
             if i.target - i.source == 1:
-                self.color[i.__hash__()] = i.source
-                peripheral_edges.append(i.__hash__())
+                self.color[i] = i.source
+                peripheral_edges.append(i)
             elif i.target - i.source == length-1:
-                self.color[i.__hash__()] = i.target
-                peripheral_edges.append(i.__hash__())
+                self.color[i] = i.target
+                peripheral_edges.append(i)
+        print("Peripheral edges")
         print(peripheral_edges)
+
+'''
         for i in self.graph.iteredges():
             print(i.__hash__())
             if i in peripheral_edges:
@@ -56,7 +60,7 @@ class EdgeColor:
                         continue
 
 
-    '''
+    
         for p_edges in peripheral_edges:
             node1 = p_edges.source
             node2 = p_edges.target
@@ -85,6 +89,7 @@ if __name__ == '__main__':
     algorithm = EdgeColor(g1)
     #print(algorithm.color)
     algorithm.run()
+    print("Kolory")
     print(algorithm.color)
 
 '''
