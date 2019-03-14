@@ -4,7 +4,7 @@ from Graphs import *
 
 
 class EdgeColor:
-    
+
     def __init__(self, graph):
         """The algorithm initialization."""
         if graph.is_directed():
@@ -12,19 +12,21 @@ class EdgeColor:
         self.graph = graph
         self.color = dict()
         self.m = 0   # graph.e() is slow
+        self.edges = []
         for edge in self.graph.iteredges():
-            if edge.source == edge.target: 
+            if edge.source == edge.target:
                 raise ValueError("a loop detected")
             else:
                 self.color[edge] = None   # edge.source < edge.target
                 self.m += 1
+                self.edges.append(edge)
         if len(self.color) < self.m:
             raise ValueError("edges are not unique")
 
-    def run(self):
+    def run_odd(self):
         length = self.graph.v()
         peripheral_edges = []
-        for i in self.graph.iteredges():
+        for i in self.edges:
             if i.target - i.source == 1:
                 self.color[i] = i.source
                 peripheral_edges.append(i)
@@ -33,38 +35,14 @@ class EdgeColor:
                 peripheral_edges.append(i)
         print("Peripheral edges")
         print(peripheral_edges)
-
-'''
-        for i in self.graph.iteredges():
-            print(i.__hash__())
-            if i in peripheral_edges:
-                print("Krawedz:",i)
-                color = self.color[i.__hash__()]
-                print("Kolor: ",color)
-                node1 = i.source
-                node2 = i.target
-                for x in range(math.floor(self.graph.v() / 2)):
-                    if node1 == 0:
-                        node1 = self.graph.v() - 1
-                    else:
-                        node1 -= 1
-                    if node2 == self.graph.v() - 1:
-                        node2 = 0
-                    else:
-                        node2 += 1
-                    if node1 < node2:
-                        self.color[i.__hash__()] = self.color[color]
-                    #elif node1 > node2:
-                    #    self.color[(node2, node1)] = self.color[p_edges.__hash__()]
-                    else:
-                        continue
-
-
-    
-        for p_edges in peripheral_edges:
-            node1 = p_edges.source
-            node2 = p_edges.target
-            for i in range(math.floor(self.graph.v()/2)):
+        #for i in self.edges:
+        for i in peripheral_edges:
+            print("Krawedz:", i)
+            color = self.color[i]
+            print("Kolor: ", color)
+            node1 = i.source
+            node2 = i.target
+            for x in range(math.floor(self.graph.v() / 2)):
                 if node1 == 0:
                     node1 = self.graph.v() - 1
                 else:
@@ -74,13 +52,13 @@ class EdgeColor:
                 else:
                     node2 += 1
                 if node1 < node2:
-                    self.color[edge.__hash__()] = self.color[p_edges.__hash__()]
+                    e = [e for e in self.edges if e.source == node1 and e.target == node2]
+                    self.color[e[0]] = color
                 elif node1 > node2:
-                    self.color[(node2, node1)] = self.color[p_edges.__hash__()]
-                else:
-                    continue
+                    e = [e for e in self.edges if e.source == node2 and e.target == node1]
+                    self.color[e[0]] = color
+                else: continue
 
-'''
 
 if __name__ == '__main__':
     graph = GraphFactory(Graph)
@@ -88,7 +66,7 @@ if __name__ == '__main__':
     #print(g1.v())
     algorithm = EdgeColor(g1)
     #print(algorithm.color)
-    algorithm.run()
+    algorithm.run_odd()
     print("Kolory")
     print(algorithm.color)
 
