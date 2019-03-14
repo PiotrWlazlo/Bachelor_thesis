@@ -52,16 +52,13 @@ class Graph(dict):
 
     def del_node(self, node):
         """Remove a node from the graph (with edges)."""
-        # dictionary changes size during iteration.
-        edges = []
+        # The dictionary changes size during iteration.
         for edge in list(self.iterinedges(node)):
             self.del_edge(edge)
-            edges.append(edge)
         if self.is_directed():
             for edge in list(self.iteroutedges(node)):
                 self.del_edge(edge)
         del self[node]
-        return edges
 
     def add_edge(self, edge):
         """Add an edge to the graph (missing nodes are created)."""

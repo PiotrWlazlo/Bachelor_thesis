@@ -1,3 +1,5 @@
+'''
+
 import unittest
 from EdgeColoring import *
 from Factory import *
@@ -53,3 +55,5 @@ class TestCompleteGraphEdgeColoring(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+'''
