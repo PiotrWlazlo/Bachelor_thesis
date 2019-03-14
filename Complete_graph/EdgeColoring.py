@@ -33,13 +33,8 @@ class EdgeColor:
             elif i.target - i.source == length-1:
                 self.color[i] = i.target
                 peripheral_edges.append(i)
-        print("Peripheral edges")
-        print(peripheral_edges)
-        #for i in self.edges:
         for i in peripheral_edges:
-            print("Krawedz:", i)
             color = self.color[i]
-            print("Kolor: ", color)
             node1 = i.source
             node2 = i.target
             for x in range(math.floor(self.graph.v() / 2)):
