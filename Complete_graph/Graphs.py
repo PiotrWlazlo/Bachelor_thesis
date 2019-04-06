@@ -1,5 +1,5 @@
-from Graphs import *
-from Edges import *
+from Complete_graph.Graphs import *
+from Complete_graph.Edges import *
 
 
 class Graph(dict):
