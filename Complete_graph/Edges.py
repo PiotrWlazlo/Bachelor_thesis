@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+
 class Edge:
     """The class defining a directed edge.
     
@@ -100,11 +103,3 @@ class UndirectedEdge(Edge):
 
 # EOF
 
-'''
-Byłyby to Węgry a konkretnie do Budapesztu. Podróż do tego miasta ciągnie się za mną już bardzo długą ilość czasu gdyż moim marzeniem było pojechanie tam na program Erasmus+. Niestety moja uczelnia zmieniła bez mojej wiedzy terminy przesyłania zgłoszeń. Rok temu były do połowy Lutego, a w tym roku było do połowy Stycznia. Dowiedziałem się o tym dwa dni po terminie zgłoszeń. Poprawiałem moją srednią przez cały semestr by dobić do średniej wymaganej, żeby na końcu nie nawet nie wysłać zgłoszenia :P Ciężko to przeżyłem i podbicie tego miasta stało się moim celem numer jeden jeśli chodzi o podróże :D
-
-Najważniejszą rzeczą powinno być wybranie odpowiedniego terminu do sprzedawania gorącej herbaty. Ważne jest żeby to był najlepiej jakiś duży spęd osób, np. targi wielbładów. Na targach wielbładów przewija się bardzo dużo ludzi i też w ten deseń chciałbym uderzyć. Kolejną ważną rzeczą jest wtopienie się w tłum, myślę że dziwnym pomysłem było by zakładanie zwykłych szortów i banerów jak na festynie, najlepszym rozwiązaniem będzie pomalowanie się czarną pastą do butów i nauczenie się kilku zwrotów po marokańsku. Oczywiście muszę nauczyć się afrykańskiego sposobu parzenia herbaty, nie mogę przecież robić tej herbaty w czajniku tylko miętowa na ognisku jak u Makłowicza, jak to mówił McKłowicz"Mocna jak diabli". Mog też nawoływać że jeśli nie będą kupować to wysadzę się w powietrze, myślę że to dobry sposób na przekoanie ich że jestem od nich.
-
-Przyczyną końca świata w moim odczuciu będzie w jednym momencie szczery i przyjazny pocałunek między Kaczyńskim, a Tuskiem poprzedzoną konferencją światową na której Donald Trump na kolanach złoży przed tronem naczelnika Morawieckiego hołd oddający stany Texas oraz Alaskę Polsce w ramach dozgonnej przyjaźni Polsko-Amerykańskiej. Wtedy to na ziemię stąpi z niebios Michael Jackson który oświadczy że to prawda że molestował dzieci i zaśpiewa Smooth Criminal. Wtedy Bóg stwierdzi że już za dużo i zakończy nasz świat włączając przycisk stop w matrixie :)
-
-'''

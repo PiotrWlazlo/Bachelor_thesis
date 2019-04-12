@@ -1,4 +1,6 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 
 class CompleteGraphEdgeColoring:
     """Find an edge coloring for a complete graph."""
