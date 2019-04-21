@@ -1,4 +1,4 @@
-from Edges import *
+from Complete_graph.Edges import *
 
 
 class Graph(dict):

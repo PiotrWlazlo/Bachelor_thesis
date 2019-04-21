@@ -22,7 +22,6 @@ class EdgeColorBipartite:
             if edge.source == edge.target:
                 raise ValueError("a loop detected")
             else:
-                #print("Dodałem krawedz")
                 self.color[edge] = None   # edge.source < edge.target
                 self.m += 1
                 #self.edges.append(edge)
@@ -34,17 +33,25 @@ class EdgeColorBipartite:
         #pokoloruj krawędzie kolorami w losowej kolejnosci
         #Ustalenie ilości kolorów - porównanie dwóch długości dwóch list
         p = self.color.keys() #Edges to colored
-        self.U = dict(self.U)
-        self.V = dict(self.V)
+        #self.U = dict(self.U)
+        #self.V = dict(self.V)
         x = len(self.U) #delta - liczbba kolorów
         if len(self.V)>x:
             x = len(self.V) #delta
-        for i in self.U.keys():
-            for x in range(1, x+1):
-                self.U[i].add(x)   #missing colors for nodes from U set
-        for i in self.V.keys():
-            for x in range(1, x+1):
-                self.V[i].add(x)   #missing colors for node from V set
+        colors = list(range(x))
+        for node in self.U.keys():
+            for count,edge in enumerate(self.graph.iteroutedges(node)):
+                self.color[edge] = colors[count]
+            colors.append(colors.pop(0))
+            '''
+                    for i in self.U.keys():
+                        for x in range(1, x+1):
+                            self.U[i].add(x)   #missing colors for nodes from U set
+                    for i in self.V.keys():
+                        for x in range(1, x+1):
+                            self.V[i].add(x)   #missing colors for node from V set
+                    i = 1
+                    '''
         #for i in range(x):
         #    self.color[Edge(random.choice(self.U), random.choice(self.V))] = i
         #for edge in p:
@@ -56,10 +63,8 @@ class EdgeColorBipartite:
     def recolor(self):
         pass
 
-    def isBipartite(self, source=None, pre_action=None, post_action=None):
+    def isBipartite(self, source=None):
         print(source)
-        #if source is None:
-        #    print('dupa')
         if source is None:
             pass
         else:
@@ -68,7 +73,7 @@ class EdgeColorBipartite:
                 if node not in self.U or node not in self.V:
                     self.visit(node)
 
-    def visit(self, node, pre_action=None, post_action=None):
+    def visit(self, node):
         Q = queue.Queue()
         Q.put(node)
         while not Q.empty():
@@ -86,30 +91,12 @@ class EdgeColorBipartite:
 
 
 if __name__ == '__main__':
-    graph = Graph(6)
+    graph = Graph(8)
     g1 = graph.load("graf.txt")
-    print(g1.v())
-    #print(g1.m)
-    #g1.save("graf.txt")
     algorithm = EdgeColorBipartite(g1)
-    print(g1)
-    #print(algorithm.m)
-    #print(algorithm.color)
-    #print(list([x for x in g1.iternodes()])[0])
     algorithm.bipartite_edge_color()
     print("Set U")
     print(algorithm.U)
     print("Set V")
     print(algorithm.V)
     print(algorithm.color)
-'''
-if __name__ == '__main__':
-    graph = Factory(Graph)
-    g1 = graph.make_complete(5)
-    #print(g1.v())
-    algorithm = EdgeColor(g1)
-    #print(algorithm.color)
-    algorithm.run_odd()
-    print("Kolory")
-    print(algorithm.color)
-'''
