@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from Complete_graph.Factory import *
 from Complete_graph.Graphs import *
 import queue
-import random
+from Complete_graph.edgecolorcs import *
 
 
-class EdgeColorBipartite:
+class SimpleBipartiteEdgeColoring:
 
     def __init__(self, graph):
         """The algorithm initialization."""
@@ -14,29 +13,41 @@ class EdgeColorBipartite:
             raise ValueError("the graph is directed")
         self.graph = graph
         self.color = dict()
-        self.m = 0   # graph.e() is slow
+        self.m = 0  # graph.e() is slow
         self.U = dict()  # color RED
         self.V = dict()  # color BLUE
-        self.visited = []
         for edge in self.graph.iteredges():
             if edge.source == edge.target:
                 raise ValueError("a loop detected")
             else:
-                self.color[edge] = None   # edge.source < edge.target
+                self.color[edge] = None  # edge.source < edge.target
                 self.m += 1
         if len(self.color) < self.m:
             raise ValueError("edges are not unique")
+        # dict with missing colors for nodes.
+        self.missing = None
 
     def run(self):
-        self.isBipartite(list([x for x in self.graph.iternodes()])[0])
-        #pokoloruj krawędzie kolorami w losowej kolejnosci
-        #Ustalenie ilości kolorów - porównanie dwóch długości dwóch list
-        delta = max(self.graph.degree(node) for node in self.graph.iternodes()) #to można szbciej, porównanie dwóch node'ów z dwóch zbiorów
-        colors = list(range(delta))
-        for node in self.U.keys():
-            for count,edge in enumerate(self.graph.iteroutedges(node)):
-                self.color[edge] = colors[count]
-            colors.append(colors.pop(0))
+        Delta = max(self.graph.degree(node) for node in self.graph.iternodes())
+        if Delta <= 2:
+            # Greedy coloring suffies.
+            algorithm = ConnectedSequentialEdgeColoring(self.graph)  # co to?
+            algorithm.run()
+            self.color = algorithm.color
+        else:
+            # Ustal liczbe wykorzystywanych kolorow.
+            k = Delta + 1  # almost optimal (simple graphs!)
+            self.missing = dict((node, set(range(k)))
+                                for node in self.graph.iternodes())  # missing colors
+            for edge in self.graph.iteredges():
+                # Sprawdz wspolny kolor brakujacy.
+                # To mozna chyba zrobic bardziej wydajnie.
+                both = self.missing[edge.source] & self.missing[edge.target]
+            #    if len(both) == 0:
+            #        self._recolor(edge)
+            #    else:
+            #        c = min(both)  # choose min color available
+            #        self._add_color(edge, c)
 
     def isBipartite(self, source=None):
         print(source)
@@ -58,20 +69,8 @@ class EdgeColorBipartite:
                     raise Exception("Graph is not Bipartite")
                 if n not in self.U and n not in self.V:
                     if source in self.U:
-                        self.V[n] = set()
+                        #self.V[n] = set()
                         Q.put(n)
                     elif source in self.V:
-                        self.U[n] = set()
+                        #self.U[n] = set()
                         Q.put(n)
-
-
-if __name__ == '__main__':
-    graph = Graph(8)
-    g1 = graph.load("graf.txt")
-    algorithm = EdgeColorBipartite(g1)
-    algorithm.run()
-    print("Set U")
-    print(algorithm.U)
-    print("Set V")
-    print(algorithm.V)
-    print(algorithm.color)
