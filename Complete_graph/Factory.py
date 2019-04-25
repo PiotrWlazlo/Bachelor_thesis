@@ -1,6 +1,6 @@
 import random
 import math
-from Edges import *
+from Complete_graph.Edges import *
 
 
 class GraphFactory:
