@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from Complete_graph.Graphs import *
+from Complete_graph.Factory import *
 import queue
 from Complete_graph.edgecolorcs import *
 
@@ -28,6 +29,7 @@ class SimpleBipartiteEdgeColoring:
         self.missing = None
 
     def run(self):
+        self.isBipartite(self.U.get("0"))
         Delta = max(self.graph.degree(node) for node in self.graph.iternodes())
         if Delta <= 2:
             # Greedy coloring suffies.
@@ -43,11 +45,35 @@ class SimpleBipartiteEdgeColoring:
                 # Sprawdz wspolny kolor brakujacy.
                 # To mozna chyba zrobic bardziej wydajnie.
                 both = self.missing[edge.source] & self.missing[edge.target]
-            #    if len(both) == 0:
-            #        self._recolor(edge)
-            #    else:
-            #        c = min(both)  # choose min color available
-            #        self._add_color(edge, c)
+                if len(both) == 0:
+                    self._recolor(edge)
+                else:
+                    c = min(both)  # choose min color available
+                    self._add_color(edge, c)
+                    print("Dupa")
+
+    def _add_color(self, edge, c):
+        """Add color."""
+        if edge.source > edge.target:
+            edge = ~edge
+        self.color[edge] = c
+        self.missing[edge.source].remove(c)
+        self.missing[edge.target].remove(c)
+
+    def _del_color(self, edge, c):
+        """Delete color."""
+        if edge.source > edge.target:
+            edge = ~edge
+        self.color[edge] = None
+        self.missing[edge.source].add(c)
+        self.missing[edge.target].add(c)
+
+    def _recolor(self,edge):
+        """Recolor edge"""
+        source_color = next(iter(self.missing.get(edge.source).values))
+        target_color = next(iter(self.missing.get(edge.target).values))
+        pass
+
 
     def isBipartite(self, source=None):
         print(source)
@@ -74,3 +100,16 @@ class SimpleBipartiteEdgeColoring:
                     elif source in self.V:
                         #self.U[n] = set()
                         Q.put(n)
+
+
+if __name__ == '__main__':
+    graph = GraphFactory(Graph)
+    g1 = graph.make_bipartite(3, 5,directed=False, edge_probability=0.9)
+    g1.save("bipartite_graf.txt")
+    algorithm = SimpleBipartiteEdgeColoring(g1)
+    algorithm.run()
+    print("Set U")
+    print(algorithm.U)
+    print("Set V")
+    print(algorithm.V)
+    print(algorithm.color)
