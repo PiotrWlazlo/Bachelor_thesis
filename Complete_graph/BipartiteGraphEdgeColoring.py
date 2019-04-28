@@ -34,7 +34,7 @@ class EdgeColorBipartite:
         delta = max(self.graph.degree(node) for node in self.graph.iternodes()) #to można szbciej, porównanie dwóch node'ów z dwóch zbiorów
         colors = list(range(delta))
         for node in self.U.keys():
-            for count,edge in enumerate(self.graph.iteroutedges(node)):
+            for count, edge in enumerate(self.graph.iteroutedges(node)):
                 self.color[edge] = colors[count]
             colors.append(colors.pop(0))
 
