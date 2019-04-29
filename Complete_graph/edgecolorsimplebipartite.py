@@ -169,7 +169,7 @@ class BipartiteGraphEdgeColoring:
 
 if __name__ == '__main__':
     graph = GraphFactory(Graph)
-    g1 = graph.make_bipartite(3, 5,directed=False, edge_probability=0.99)
+    g1 = graph.make_bipartite(5, 8,directed=False, edge_probability=0.99)
     g1.save("bipartite_graf.txt")
     algorithm = BipartiteGraphEdgeColoring(g1)
     algorithm.run()

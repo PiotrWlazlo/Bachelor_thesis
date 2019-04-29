@@ -28,16 +28,29 @@ class GraphFactory:
     def make_bipartite(self, n1=1, n2=1, directed=False, edge_probability=0.5):
         """Create a weighted random bipartite graph."""
         graph = self.cls(n1 + n2, directed)
-        weights = list(range(1, n1 * n2 + 1))  # different weights
+        weights = list(range(1, int(n1 * n2 + 1)))  # different weights
         random.shuffle(weights)
-        for node in range(n1 + n2):
+        for node in range(int(n1 + n2)):
             graph.add_node(node)
-        for source in range(n1):
-            for target in range(n1, n1 + n2):  # no loops
+        for source in range(int(n1)):
+            for target in range(int(n1), int(n1 + n2)):  # no loops
                 if random.random() > edge_probability:
                     continue
                 if random.random() > 0.5:  # random direction
                     graph.add_edge(Edge(source, target, weights.pop()))
                 else:
                     graph.add_edge(Edge(target, source, weights.pop()))
+        return graph
+
+    def make_cyclic(self, n=1, directed=False):
+        """Create a weighted cyclic graph."""
+        if n < 3:
+            raise ValueError("number of nodes must be greater than 2")
+        graph = self.cls(n, directed)
+        weights = list(range(1, 1 + n))  # different weights
+        random.shuffle(weights)
+        for node in range(n):
+            graph.add_node(node)
+        for i in range(n):
+            graph.add_edge(Edge(i, (i + 1) % n, weights.pop()))
         return graph

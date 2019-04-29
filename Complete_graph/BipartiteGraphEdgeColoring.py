@@ -4,7 +4,7 @@ from Complete_graph.Factory import *
 from Complete_graph.Graphs import *
 import queue
 import random
-
+'''
 
 class EdgeColorBipartite:
 
@@ -75,3 +75,59 @@ if __name__ == '__main__':
     print("Set V")
     print(algorithm.V)
     print(algorithm.color)
+'''
+
+#!/usr/bin/python
+
+from Complete_graph.bipartite import BipartiteGraphBFS as Bipartite
+#from bipartite import BipartiteGraphDFS as Bipartite
+
+
+class CompleteBipartiteGraphEdgeColoring:
+    """Find an edge coloring for a complete bipartite graph."""
+
+    def __init__(self, graph):
+        """The algorithm initialization."""
+        if graph.is_directed():
+            raise ValueError("the graph is directed")
+        self.graph = graph
+        self.color = dict()
+        self.m = 0   # graph.e() is slow
+        for edge in self.graph.iteredges():
+            if edge.source == edge.target:
+                raise ValueError("a loop detected")
+            else:
+                self.color[edge] = None   # edge.source < edge.target
+                self.m += 1
+        if len(self.color) < self.m:
+            raise ValueError("edges are not unique")
+        algorithm = Bipartite(self.graph)   # O(V+E) time
+        algorithm.run()
+        # Slowniki na indeksy wierzcholkow.
+        self.D1 = dict()
+        self.D2 = dict()
+        idx1 = 0
+        idx2 = 0
+        for node in self.graph.iternodes():   # O(V) time
+            if algorithm.color[node] == 1:
+                self.D1[node] = idx1
+                idx1 += 1
+            else:
+                self.D2[node] = idx2
+                idx2 += 1
+        if self.m != len(self.D1) * len(self.D2):
+            raise ValueError("the graph is not complete bipartite")
+
+    def run(self):
+        """Executable pseudocode."""
+        # Liczba dostepnych kolorow krawedzi.
+        Delta = max(len(self.D1), len(self.D2))
+        for node in self.D1:   # lacznie czas O(E)
+            for edge in self.graph.iteroutedges(node):
+                # Konce krawedzi sa w D2.
+                c = (self.D1[edge.source] + self.D2[edge.target]) % Delta
+                if edge.source > edge.target:   # moga byc odwrocone krawedzie
+                    edge = ~edge
+                self.color[edge] = c
+
+# EOF
