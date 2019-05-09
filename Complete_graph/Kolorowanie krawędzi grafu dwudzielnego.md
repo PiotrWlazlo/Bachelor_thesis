@@ -22,5 +22,13 @@ złożoność czasowa zajmuje O(V+E)
 Złożoność pamięciowa zajmuje O(V+E) gdyż słownik color zajmuje dokładnie O(E) pamięci,
 zaś dwa słowniki D1 i D2 zajmują łącznie O(V) pamięci.
 
+#Kolorowanie krawędzi grafu dwudzielnego zwykłego
+
+#Dane wejściowe
+Graf dwudzielny zwykły
+#Problem
+Kolorowanie krawędzi grafu dwudzielnego prostego
+
+
 
 

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import unittest
-from Complete_graph.BipartiteGraphEdgeColoring import *
+from Complete_graph.algorithms.BipartiteGraphEdgeColoring import *
 
 class TestFullEdgeColoring(unittest.TestCase):
 

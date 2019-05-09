@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from Complete_graph.Factory import *
-from Complete_graph.Graphs import *
-import queue
-import random
 '''
 
 class EdgeColorBipartite:
@@ -79,7 +75,7 @@ if __name__ == '__main__':
 
 #!/usr/bin/python
 
-from Complete_graph.bipartite import BipartiteGraphBFS as Bipartite
+from Complete_graph.algorithms.bipartite import BipartiteGraphBFS as Bipartite
 #from bipartite import BipartiteGraphDFS as Bipartite
 
 

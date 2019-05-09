@@ -3,9 +3,8 @@
 # Sprawdzam szybkosc kolorowania grafu dwudzielnego.
 
 import timeit
-import random
-from Complete_graph.edgecolorsimplebipartite import *
-from Complete_graph.BipartiteGraphEdgeColoring import *
+from Complete_graph.algorithms.edgecolorsimplebipartite import *
+from Complete_graph.algorithms.BipartiteGraphEdgeColoring import *
 
 V = 5000
 gf = GraphFactory(Graph)

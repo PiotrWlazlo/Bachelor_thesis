@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from Complete_graph.edgecolorcs import ConnectedSequentialEdgeColoring
+from Complete_graph.algorithms.edgecolorcs import ConnectedSequentialEdgeColoring
 
 
 class NTLEdgeColoring:

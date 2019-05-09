@@ -13,7 +13,7 @@ class Edge:
     Examples
     --------
     '''
-    >>> from graphtheory.structures.edges import Edge
+    >>> from Complete_graph.structures.Edges import Edge
     >>> edge = Edge(1, 2, 5)
     >>> ~edge
     '''

@@ -1,10 +1,11 @@
 #!/usr/bin/python
 
 import unittest
-from Complete_graph.Edges import *
-#from graphs import Graph
-from Complete_graph.Factory import *
-from Complete_graph.edgecolorsimplebipartite import *
+from Complete_graph.structures.Edges import *
+from Complete_graph.structures.Graphs import *
+from Complete_graph.structures.Factory import *
+from Complete_graph.algorithms.edgecolorsimplebipartite import *
+
 
 class TestEdgeColoring(unittest.TestCase):
 
